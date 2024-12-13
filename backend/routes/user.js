@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const {authenticateToken} = require("./userAuth")
 //sing-up
-router.post("/sing-up", async (req,res) => {
+router.post("/sign-up", async (req,res) => {
   try {
     const {username,email,password,address} = req.body;
     //username length check
@@ -42,7 +42,7 @@ router.post("/sing-up", async (req,res) => {
   }
 })
 //login
-router.post("/sing-in", async (req,res) => {
+router.post("/sign-in", async (req,res) => {
   try {
     const {username,password} = req.body;
     const existingUser  = await User.findOne({username});
