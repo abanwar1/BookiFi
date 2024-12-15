@@ -84,15 +84,23 @@ router.get("/get-user-information",authenticateToken, async(req,res)=>{
 })
 
 //update address
-router.put("/update-address",authenticateToken, async(req,res)=>{
+router.put("/update-address", authenticateToken, async (req, res) => {
   try {
-    const {id} = req.headers;
-    const {address} = req.body;
-    await User.findByIdAndUpdate(id,{address:address});
-    return res.status(200).json({message:"Address update successfully"});
+    const { id } = req.headers;
+    const { address } = req.body;
+
+
+    if (!id || !address) {
+      return res.status(400).json({ message: "Missing id or address" });
+    }
+
+    await User.findByIdAndUpdate(id, { address: address });
+    return res.status(200).json({ message: "Address updated successfully" });
   } catch (error) {
-    res.status(500).json({message:"Internal Server Error"});
+    console.error("Error updating address:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
-})
+});
+
 
 module.exports = router;
