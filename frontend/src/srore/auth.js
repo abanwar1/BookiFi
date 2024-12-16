@@ -12,7 +12,7 @@ const authSlice = createSlice({
     },
     changeRole(state,action){
       const role = action.payload;
-      state.role - role;
+      state.role = role;
     },
   },
 })

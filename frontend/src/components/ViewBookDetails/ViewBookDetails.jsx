@@ -1,14 +1,16 @@
 import React, { useState,useEffect } from 'react'
 import axios from "axios"
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { GrLanguage } from "react-icons/gr";
 import { FaHeart } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 const ViewBookDetails = () => {
   const {id} = useParams();
+  const navigate = useNavigate();
   const [data, setData] = useState();
   const isLoggedIn = useSelector((state)=> state.auth.isLoggedIn)
   const role = useSelector((state)=> state.auth.role)
@@ -34,6 +36,12 @@ const ViewBookDetails = () => {
     alert(response?.data?.message);
     
   }
+  const deleteBook = async () =>{
+    const response = await axios.delete("http://localhost:1000/api/v1/delete-book",{headers});
+    alert(response?.data?.message);
+    navigate("/all-books");
+    
+  }
   
   return (
     <>
@@ -49,8 +57,8 @@ const ViewBookDetails = () => {
       </div>}
       {isLoggedIn === true && role ==="admin" && 
       <div className='flex md:flex-col'>
-      <button className='bg-white rounded-full text-2xl p-3'><FaEdit /></button>
-      <button className='bg-white rounded-full text-2xl p-3 text-blue-500 mt-8'><MdDelete /></button>
+      <Link to={`/updateBook/${id}`} className='bg-white rounded-full text-2xl p-3'><FaEdit /></Link>
+      <button className='bg-white rounded-full text-2xl p-3 text-blue-500 mt-8' onClick={deleteBook}><MdDelete /></button>
       </div>}
       </div>
       </div>
