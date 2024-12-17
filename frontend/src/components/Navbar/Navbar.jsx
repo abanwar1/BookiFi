@@ -44,7 +44,7 @@ const Navbar = () => {
   return (
     <div className='flex bg-zinc-800 text-white px-8 py-4 items-center justify-between'>
       <Link to={"/"} className='flex items-center'>
-        <img  className='h-10 me-4' src="https://cdn-icons-png.flaticon.com/128/10433/10433049.png" alt="logo" />
+        <img  className='h-8 me-4' src="./logo1.jpg" alt="logo" />
         <h1 className='text-2xl font-semibold'>BookiFi</h1>
       </Link>
       <div className='nav-links-bokifi block md:flex items-center gap-4'>
