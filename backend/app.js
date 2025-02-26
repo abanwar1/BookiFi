@@ -19,6 +19,6 @@ app.use("/api/v1",Favourite)
 app.use("/api/v1",Cart)
 app.use("/api/v1",Order)
 app.listen(PORT,()=>{
-  console.log(`Server Started ${process.env.PORT}`);
+  console.log(`Server Started ${PORT}`);
   
 });
