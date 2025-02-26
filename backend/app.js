@@ -11,14 +11,14 @@ const Order = require("./routes/order")
 
 app.use(cors());
 app.use(express.json());
-
+const PORT = process.env.PORT || 3000
 
 app.use("/api/v1",User)
 app.use("/api/v1",Books)
 app.use("/api/v1",Favourite)
 app.use("/api/v1",Cart)
 app.use("/api/v1",Order)
-app.listen(process.env.PORT,()=>{
+app.listen(PORT,()=>{
   console.log(`Server Started ${process.env.PORT}`);
   
 });
