@@ -31,7 +31,7 @@ const UpdateBook = () => {
       alert('All fields are required!');
       return;
     } else {
-      const response = await axios.put("http://localhost:1000/api/v1/update-book",data,{headers});
+      const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/v1/update-book`,data,{headers});
       console.log(response);
       setData({
       url: '',
@@ -49,7 +49,7 @@ const UpdateBook = () => {
   };
   useEffect(() => {
     const fetch = async () =>{
-      const response = await axios.get(`http://localhost:1000/api/v1/get-book-by-id/${id}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/get-book-by-id/${id}`);
       setData(response?.data?.data)
     }
     fetch();

@@ -9,7 +9,7 @@ const BookCard = ({items, fav}) => {
     bookid:items?._id
   }
   const handleRemoveBook = async ()=>{
-    const response = await axios.put("http://localhost:1000/api/v1/remove-book-from-favourite",{},{headers});
+    const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/v1/remove-book-from-favourite`,{},{headers});
       alert(response?.data?.message);
   }
   return (

@@ -20,7 +20,7 @@ const AllOrder = () => {
   // Fetch orders
   const fetchOrders = async () => {
     try {
-      const response = await axios.get("http://localhost:1000/api/v1/get-all-orders", { headers });
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/get-all-orders`, { headers });
       setAllOrders(response?.data?.data || []);
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -36,7 +36,7 @@ const AllOrder = () => {
     try {
       const id = allOrders[index]._id;
       const response = await axios.put(
-        `http://localhost:1000/api/v1/update-status/${id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/v1/update-status/${id}`,
         { status: currentStatus }, // Pass the updated status
         { headers }
       );

@@ -20,7 +20,7 @@ const LogIn = () => {
       if(!values.username || !values.password ){
         alert("Username and password required")
       } 
-      const response = await axios.post("http://localhost:1000/api/v1/sign-in",values,{ headers: { "Content-Type": "application/json" }})
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/sign-in`,values,{ headers: { "Content-Type": "application/json" }})
         dispatch(authActions.login());
         dispatch(authActions.changeRole(response?.data?.role));
         localStorage.setItem("id",response?.data?.id)
