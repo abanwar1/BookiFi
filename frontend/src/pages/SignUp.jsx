@@ -18,7 +18,7 @@ const SignUp = () => {
       if(values.username === "" || values.email ==="" || values.password === "" || values.address ===""){
         alert("All field are required")
       } else {
-        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/sign-up`,values)
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/sign-up`,values)
         alert(response?.data?.message);
         navigate("/login")
         

@@ -12,18 +12,18 @@ const Cart = () => {
   }
   useEffect(()=>{
     const fetch = async() =>{
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/get-user-cart`,{headers});
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/get-user-cart`,{headers});
       setCart(response?.data?.data);
     }
     fetch();
   },[cart])
   const deleteItem = async (bookid) =>{
-    const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/v1/remove-from-cart/${bookid}`,{},{headers});
+    const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/v1/remove-from-cart/${bookid}`,{},{headers});
     alert(response?.data?.message); 
   }
   const placedOrder = async () =>{
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/placed-order`,{order:cart},{headers});
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/placed-order`,{order:cart},{headers});
     alert(response?.data?.message); 
     navigate("/profile/orderHistory");
 

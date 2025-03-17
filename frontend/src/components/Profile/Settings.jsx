@@ -10,7 +10,7 @@ const Settings = () => {
   }
   useEffect(()=>{
     const fetch = async() =>{
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/get-user-information`,{headers});
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/get-user-information`,{headers});
       setProfileData(response?.data);
       setValue({address:response?.data?.address});
       
@@ -22,7 +22,7 @@ const Settings = () => {
     setValue({ ...value, [name]: value });
   };
   const handleUpdate = async () => {
-    const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/v1/update-address`,value,{headers});
+    const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/v1/update-address`,value,{headers});
     alert(response?.data?.message);
     
   }

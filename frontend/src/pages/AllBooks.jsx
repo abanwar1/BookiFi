@@ -5,7 +5,7 @@ const RecentlyAdded = () => {
   const [data, setData] = useState();
   useEffect(() => {
     const fetch = async () =>{
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/get-all-books`);
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/get-all-books`);
       setData(response?.data?.data)
       
     }
