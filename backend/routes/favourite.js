@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/user")
-const {authenticateToken} = require("./userAuth")
+const {authenticateToken} = require("../middleware/auth")
 //add book to favourite
 router.put("/add-book-to-favourite", authenticateToken, async(req,res)=>{
   try {

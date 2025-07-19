@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const User = require("../models/user")
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const {authenticateToken} = require("./userAuth")
+const generateToken = require("../utils/generateToken");
+const {authenticateToken} = require("../middleware/auth")
 //sing-up
 router.post("/sign-up", async (req,res) => {
   try {
@@ -42,35 +42,32 @@ router.post("/sign-up", async (req,res) => {
   }
 })
 //login
-router.post("/sign-in", async (req,res) => {
+router.post("/sign-in", async (req, res) => {
   try {
-    const {username,password} = req.body;
-    const existingUser  = await User.findOne({username});
-    if(!existingUser){
-      res.status(400).json({message:"Invalid Credentials"})
+    const { username, password } = req.body;
+    const existingUser = await User.findOne({ username });
+
+    if (!existingUser) {
+      return res.status(400).json({ message: "Invalid Credentials" });
     }
-    await bcrypt.compare(password, existingUser.password,(err,data)=>{
-      if(data){
-        const authClaims = [
-          {
-            name:existingUser.username
-          },
-          {
-            role:existingUser.role
-          },
-        ]
-        const token = jwt.sign({authClaims},"bookifi123",{
-          expiresIn:"30d"
-        })
-        res.status(200).json({id:existingUser._id,role:existingUser.role,token:token});
+
+    await bcrypt.compare(password, existingUser.password, (err, isMatch) => {
+      if (isMatch) {
+        const token = generateToken(existingUser._id); // using your helper
+
+        res.status(200).json({
+          id: existingUser._id,
+          role: existingUser.role,
+          token: token,
+        });
       } else {
-        res.status(400).json({message:"Invalid credentials"});
+        res.status(400).json({ message: "Invalid credentials" });
       }
-    })
+    });
   } catch (error) {
-    res.status(500).json({message:"Internal Server Error"});
+    res.status(500).json({ message: "Internal Server Error" });
   }
-})
+});
 
 //get-user-information
 router.get("/get-user-information",authenticateToken, async(req,res)=>{
